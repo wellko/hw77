@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {CardState} from "../../types";
+import {getCards} from "./MainPageThunks";
 
 interface Initial {
     cards: CardState[];
@@ -15,6 +16,9 @@ export const UserFormSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
+        builder.addCase(getCards.fulfilled, (state, action) => {
+            state.cards = action.payload;
+        })
 }});
 
 export const MainPageReducer = UserFormSlice.reducer;

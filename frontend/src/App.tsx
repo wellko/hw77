@@ -1,12 +1,14 @@
 import React from 'react';
+import MainPage from "./features/MainPage/MainPage";
+import {Box} from "@mui/material";
 
 
 function App() {
-  return (
-    <div className="App">
-
-    </div>
-  );
+	return (
+		<Box>
+		<MainPage/>
+		</Box>
+	);
 }
 
 export default App;
