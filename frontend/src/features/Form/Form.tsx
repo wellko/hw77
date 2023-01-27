@@ -1,13 +1,16 @@
-import {Box, Button, Grid, TextField} from "@mui/material";
+import {Box, Grid, TextField} from "@mui/material";
 import {useState} from "react";
 import {CardState} from "../../types";
 import FileInput from "../../components/UI/FileInput/Fileinput";
-import {useAppDispatch} from "../../app/hooks";
-import {newCard} from "../MainPage/MainPageThunks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {getCards, newCard} from "../MainPage/MainPageThunks";
+import {selectPosting} from "../MainPage/MainPageSlice";
+import {LoadingButton} from "@mui/lab";
 
 const Form = () => {
-
 	const dispatch = useAppDispatch();
+
+	const posting = useAppSelector(selectPosting);
 
 	const initialState:CardState = {
 		author: '',
@@ -30,6 +33,7 @@ const Form = () => {
 		e.preventDefault();
 		await dispatch(newCard(post));
 		setPost(initialState);
+		await dispatch(getCards());
 	}
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +55,7 @@ const Form = () => {
 						onChange={fileInputChangeHandler}
 					/>
 				</Grid>
-				<Button type='submit' variant='contained'>Post</Button>
+				<LoadingButton loading={posting} type='submit' variant='contained'>Post</LoadingButton>
 			</form>
 		</Box>
 	);
