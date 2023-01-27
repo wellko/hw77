@@ -2,7 +2,6 @@ import {promises as fs} from 'fs';
 import {Card} from "./types";
 
 const filename = './db.json';
-
 let data: Card[] = [];
 
 const fileDb = {
@@ -14,17 +13,14 @@ const fileDb = {
             data = [];
         }
     },
-
     async getItems() {
         return data;
     },
-
     async addItem(item: Card) {
         data.push(item);
         await this.save();
         return item
     },
-
     async save() {
         return fs.writeFile(filename, JSON.stringify(data));
     }
